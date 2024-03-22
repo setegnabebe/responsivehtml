@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') { // Checkout code from SCM
             steps {
                 git branch: 'master', // Use 'master' for self-hosted server (replace if needed)
-                    credentialsId: 'your-credentials-id', // Replace with actual credential ID
+                    credentialsId: 'setegn', 
                     url: 'https://github.com/setegnabebe/responsivehtml.git' // Use your repository URL
             }
         }
