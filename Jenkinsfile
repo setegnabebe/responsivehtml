@@ -4,54 +4,39 @@ pipeline {
 
     // Define environment variables (optional)
     environment {
-        MY_VARIABLE = 'value' // Define custom environment variables accessible in steps
+        MY_VARIABLE = 'value' // Define custom environment variables accessible in steps (optional)
     }
 
     stages {
         stage('Checkout') { // Checkout code from SCM
             steps {
-                git branch: 'master',
+                git branch: 'master', // Use 'master' for self-hosted server (replace if needed)
                     credentialsId: 'your-credentials-id', // Replace with actual credential ID
-                    url: 'https://github.com/setegnabebe/responsivehtml.git'
+                    url: 'https://github.com/setegnabebe/responsivehtml.git' // Use your repository URL
             }
         }
         stage('Build') { // Build your application (replace with your specific commands)
             steps {
-                // Use sh for shell commands
-                sh 'make build' // Example shell command for building
-                // Or, use specific tools if applicable
-                sh 'mvn clean install' // Example Maven build command
+                // Use sh for shell commands (replace with your build commands)
+                // Example: Assuming you have an HTML file and want to copy it
+                sh 'cp index.html target/'  // Replace with your build commands
 
                 // Archive build artifacts (optional)
-                archiveArtifacts '**/*.war' // Archive all WAR files in the workspace
+                archiveArtifacts '**/*.html' // Archive all HTML files in the workspace (replace if needed)
             }
         }
-        stage('Test') { // Add a testing stage (replace with your testing commands)
-            steps {
-                sh './run_tests.sh' // Example shell script for running tests
-                // Or, use a testing framework plugin like JUnit
-            }
-        }
-        stage('Deploy') { // Add a deployment stage (replace with your deployment commands)
-            when { // Optional: Conditionally run this stage (e.g., only on main branch)
-                expression { branch == 'master' }
-            }
-            steps {
-                
-                sh 'scp target/*.war hagbes@10.10.1.135:/path/to/deploy'
-            }
-        }
+        // Add other stages like 'Test' and 'Deploy' if needed (replace commands)
     }
 
-   
+    // Post-build actions (optional)
     post {
         always {
-           
+            // Clean up workspace after each build
             cleanWs()
         }
         success {
             // Send notification on successful build (e.g., email, Slack)
-            emailaddress 'youremail@example.com'
+            emailaddress 'rediet.solomon@hagbes.com' // Use your email address
             body 'Build Successful!'
         }
     }
