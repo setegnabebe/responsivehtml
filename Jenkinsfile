@@ -1,37 +1,27 @@
 pipeline {
-    // Optional: Set a descriptive pipeline name
-    agent any  // Agent (executor) where the build will run
-
-    // Define environment variables (optional)
+    agent any  
     environment {
-        MY_VARIABLE = 'value' // Define custom environment variables accessible in steps (optional)
+        MY_VARIABLE = 'value' 
     }
 
     stages {
-        stage('Checkout') { // Checkout code from SCM
+        stage('Checkout') { 
             steps {
-                git branch: 'master', // Use 'master' for self-hosted server (replace if needed)
+                git branch: 'master', 
                     credentialsId: 'setegn', 
-                    url: 'https://github.com/setegnabebe/responsivehtml.git' // Use your repository URL
+                    url: 'https://github.com/setegnabebe/responsivehtml.git' 
             }
         }
-        stage('Build') { // Build your application (replace with your specific commands)
+        stage('Build') { 
             steps {
-                // Use sh for shell commands (replace with your build commands)
-                // Example: Assuming you have an HTML file and want to copy it
-                sh 'cp index.html target/'  // Replace with your build commands
+                sh 'cp index.html target/'  
 
-                // Archive build artifacts (optional)
-                archiveArtifacts '**/*.html' // Archive all HTML files in the workspace (replace if needed)
+                archiveArtifacts '**/*.html'
             }
         }
-        // Add other stages like 'Test' and 'Deploy' if needed (replace commands)
     }
-
-    // Post-build actions (optional)
     post {
         always {
-            // Clean up workspace after each build
             cleanWs()
         }
         success {
