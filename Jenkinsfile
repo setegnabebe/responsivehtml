@@ -6,7 +6,9 @@ pipeline {
         stage('deploy') {
         steps {
           
-            sh 'scp -r -p -o StrictHostKeyChecking=no ./responsivehtml/* hagbes@10.10.1.135:/var/www/html'
+            
+            scp -r -p ./responsivehtml/* hagbes@10.10.1.135:/var/www/html
+
 
 }
    
