@@ -1,33 +1,12 @@
+
 pipeline {
-    agent any  
-    environment {
-        MY_VARIABLE = 'value' 
-    }
+    agent any
 
     stages {
-        stage('Checkout') { 
+        stage('Deploy html site') {
             steps {
-                git branch: 'master', 
-                    credentialsId: 'setegn', 
-                    url: 'https://github.com/setegnabebe/responsivehtml.git' 
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
             }
-        }
-        stage('Build') { 
-            steps {
-                sh 'cp index.html target/'  
-
-                archiveArtifacts '**/*.html'
-            }
-        }
-    }
-    post {
-        always {
-            cleanWs()
-        }
-        success {
-            // Send notification on successful build (e.g., email, Slack)
-            emailaddress 'rediet.solomon@hagbes.com' // Use your email address
-            body 'Build Successful!'
         }
     }
 }
