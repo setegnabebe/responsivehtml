@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        dockerimagename = "hagbes/webchat"
+        dockerimagename = "hagbesit/webchat"
         dockerImage = ""
     }
     agent any
@@ -19,11 +19,11 @@ pipeline {
         }
         stage('Pushing Image') {
             environment {
-                registryCridential = 'hagbesit'
+                registryCredential = 'hagbesit'
             }
             steps {
                 script{
-                    docker.withRegistry( 'https:registry.hub.docker.com' , registryCridential ) {
+                    docker.withRegistry( 'https://registry.hub.docker.com' , registryCredential ) {
                         dockerImage.push("latest")
                     }
                 }
