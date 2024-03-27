@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        dockerimagename = "hagbesit/webchat"
+        dockerimagename = "jenkins/jenkins"
         dockerImage = ""
         dockerPath = "/usr/bin/docker"
     }
