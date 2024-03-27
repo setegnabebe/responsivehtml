@@ -6,7 +6,7 @@ pipeline {
     agent any
     stages {
         stage ('checkout') {
-            step{
+            steps{
                 git 'https://github.com/setegnabebe/responsivehtml.git'
             }
         }
