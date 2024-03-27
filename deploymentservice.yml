@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: weberver
-        image: hagbesit/webchat:latest
+        image: jenkins/jenkins:latest 
         ports:
         - containerPort: 3030
         
