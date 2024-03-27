@@ -47,7 +47,6 @@
 
 
 version: '3.9'
-
 services:
   jenkins:
     build:
