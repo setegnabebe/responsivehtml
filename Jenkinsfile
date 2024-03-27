@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Pushing Image') {
             environment {
-                registryCridential = 'webchat'
+                registryCridential = 'hagbesit'
             }
             steps {
                 script{
