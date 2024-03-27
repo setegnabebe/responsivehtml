@@ -59,7 +59,9 @@ services:
     user: root
 
     healthcheck:
-      test: curl -s https://localhost:8080 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      // test: curl -s https://localhost:8080 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      test: curl -s https://localhost:8080 >/dev/null && [[ $? == 52 ]]; then echo 0; else echo 1; fi
+
       interval: 1m
       timeout: 5s
       retries: 3
