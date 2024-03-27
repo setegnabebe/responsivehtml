@@ -11,13 +11,13 @@ pipeline {
                 git 'https://github.com/setegnabebe/responsivehtml.git'
             }
         }
-        stage('Build Image'){
-            steps{
-                script{
-                    dockerImage = docker.build dockerimagename
-                }
-            }
-        }
+       # stage('Build Image'){
+        #    steps{
+         #       script{
+          #          dockerImage = docker.build dockerimagename
+          #      }
+           # }
+        #}
         stage('Pushing Image') {
             environment {
                 registryCredential = 'hagbesit'
