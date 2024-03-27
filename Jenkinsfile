@@ -52,7 +52,7 @@ services:
   jenkins:
     build:
       dockerfile: Dockerfile
-      context: .
+      context: 
     container_name: jenkins
     restart: always
     privileged: true
