@@ -13,7 +13,7 @@
 
 # https://github.com/jenkinsci/docker/blob/master/README.md
 FROM jenkins/jenkins:lts
-MAINTAINER blankhang@gmil.com
+MAINTAINER setegn.com
 
 USER root
 
@@ -26,15 +26,13 @@ RUN mv docker/* /usr/bin/
 
 # update system and install chinese language support and maven nodejs
 RUN apt-get update && apt-get install -y locales locales-all maven nodejs \
-    && sed -i '/^#.* zh_CN.UTF-8 /s/^#//' /etc/locale.gen \
+    && sed -i '/^#.* en_US.UTF-8 /s/^#//' /etc/locale.gen \
     && locale-gen \
     && rm -rf /var/lib/apt/lists/* \
 
 # Setting Default Chinese Language and UTC+8 timezone
 #ENV LANG C.UTF-8
 ENV LANG zh_CN.UTF-8
-ENV LANGUAGE zh_CN.UTF-8
-ENV LC_ALL zh_CN.UTF-8
-ENV TZ Asia/Shanghai
+ENV LANGUAGE en_US.UTF-8
 
 USER Jenkins
