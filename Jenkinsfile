@@ -2,6 +2,7 @@ pipeline {
     environment {
         dockerimagename = "hagbesit/webchat"
         dockerImage = ""
+        dockerPath = "/usr/bin/docker"
     }
     agent any
     stages {
