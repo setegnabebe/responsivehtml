@@ -1,4 +1,5 @@
-FROM nginx:alpine
+FROM httpd:latest
+COPY ./setegnabebe/responsivehtml /usr/local/apache2/htdocs/
 
 WORKDIR /usr/share/nginx/html
 
