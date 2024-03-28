@@ -9,6 +9,9 @@ pipeline {
         stage('Checkout') {
             steps {
                  git 'https://github.com/setegnabebe/responsivehtml.git'
+                withCredentials([usernamePassword(credentialsId: 'hagbesit', usernameVariable: 'setegnabebe', passwordVariable: 'mercymo1025never126')]) {
+                git branch: 'master', credentialsId: 'hagbesit', url: 'https://github.com/setegnabebe/responsivehtml.git'
+                    }
             }
         }
 
