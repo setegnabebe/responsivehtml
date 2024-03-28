@@ -1,79 +1,31 @@
-// pipeline {
-//     agent any
-
-//     environment {
-//         KUBECONFIG = '/root/.kube/config' 
-//         dockerImageName= 'webchat:latest'
-    
-//     }
-//     stages {
-//         stage('Checkout') {
-//             steps {
-//                 withCredentials([usernamePassword(credentialsId: 'setegn')]) {
-//                 git branch: 'master', credentialsId: 'setegn', url: 'https://github.com/setegnabebe/responsivehtml.git'
-//                     }
-//             }
-//         }
-
-//         stage('Build Docker Image') {
-//             steps {
-//                 script {
-                    
-//                      docker.build(dockerImageName)
-//                 }
-//             }
-//         }
-
-//         stage('Deploy to Kubernetes') {
-//             steps {
-//                 script {
-//                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yml --namespace=jenkins --record"
-//                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f service.yml --namespace=jenkins"
-//                 }
-//             }
-//         }
-
-//         stage('Cleanup') {
-//             steps {
-//                 sh "kubectl --kubeconfig=${KUBECONFIG} delete deployment -l app=webchat --namespace=jenkins"
-//                 sh "kubectl --kubeconfig=${KUBECONFIG} delete service -l app=webchat --namespace=jenkins"
-//             }
-//         }
-//     }
-// }
-
-
-
 pipeline {
     agent any
 
     environment {
         KUBECONFIG = '/root/.kube/config' 
         dockerImageName= 'webchat:latest'
-    }
     
+    }
     stages {
         stage('Checkout') {
             steps {
-                // Checkout code from Git repository
-                withCredentials([usernamePassword(credentialsId: 'setegn', usernameVariable: 'setegnabebe', passwordVariable: 'mercymo1025never126')]) {
-                    git branch: 'master', credentialsId: 'setegn', url: 'https://github.com/setegnabebe/responsivehtml.git'
-                }
+                withCredentials([usernamePassword(credentialsId: 'setegn')]) {
+                git branch: 'master', credentialsId: 'setegn', url: 'https://github.com/setegnabebe/responsivehtml.git'
+                    }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
                 script {
-                    docker.build(dockerImageName)
+                    
+                     docker.build(dockerImageName)
                 }
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                // Apply deployment and service YAML files to Kubernetes
                 script {
                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yml --namespace=jenkins --record"
                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f service.yml --namespace=jenkins"
@@ -83,7 +35,6 @@ pipeline {
 
         stage('Cleanup') {
             steps {
-                // Delete deployment and service from Kubernetes
                 sh "kubectl --kubeconfig=${KUBECONFIG} delete deployment -l app=webchat --namespace=jenkins"
                 sh "kubectl --kubeconfig=${KUBECONFIG} delete service -l app=webchat --namespace=jenkins"
             }
