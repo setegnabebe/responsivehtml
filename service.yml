@@ -12,6 +12,6 @@ spec:
     app: jenkins-server
   type: webChat  
   ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 3000
+    - port: 8083
+      targetPort: 8083
+      nodePort: 31989
