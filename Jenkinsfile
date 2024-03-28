@@ -3,14 +3,14 @@ pipeline {
 
     environment {
         KUBECONFIG = '/root/.kube/config' 
+        dockerImageName= 'webchat:latest'
     
     }
     stages {
         stage('Checkout') {
             steps {
-                 git 'https://github.com/setegnabebe/responsivehtml.git'
-                withCredentials([usernamePassword(credentialsId: 'hagbesit', usernameVariable: 'setegnabebe', passwordVariable: 'mercymo1025never126')]) {
-                git branch: 'master', credentialsId: 'hagbesit', url: 'https://github.com/setegnabebe/responsivehtml.git'
+                withCredentials([usernamePassword(credentialsId: 'setegn')]) {
+                git branch: 'master', credentialsId: 'setegn', url: 'https://github.com/setegnabebe/responsivehtml.git'
                     }
             }
         }
@@ -19,8 +19,7 @@ pipeline {
             steps {
                 script {
                     
-                        docker.build(dockerimagename, './Dockerfile') 
-                        docker.image(dockerimagename).push('latest')
+                     docker.build(dockerImageName)
                 }
             }
         }
