@@ -2,20 +2,15 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = '/home/user/.kube/config' 
+        KUBECONFIG = '/home/.kube/config' 
         DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') 
     }
-    stage('Checkout') {
+    stages {
+        stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM',
                           branches: [[name: '*/master']],
                           userRemoteConfigs: [[url: 'git@github.com:setegnabebe/responisivehtml.git']]])
-            }
-        }
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/setegnabebe/responisivehtml.git' 
             }
         }
 
@@ -33,14 +28,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    def label = "webchat-${env.BUILD_ID}"
-                    def image = 'webchat:latest'
-
-                    // sh "kubectl --kubeconfig=${KUBECONFIG} deploymentservice.yml webchat=${image}"
-                    // sh "kubectl --kubeconfig=${KUBECONFIG} deploymentservice.yml"
-
                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yml --namespace=jenkins --record"
-
                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f service.yml --namespace=jenkins"
                 }
             }
@@ -48,14 +36,12 @@ pipeline {
 
         stage('Cleanup') {
             steps {
-                sh "kubectl --kubeconfig=${KUBECONFIG} delete pod -l app=webchat" // Clean up old pods
+                sh "kubectl --kubeconfig=${KUBECONFIG} delete deployment -l app=webchat --namespace=jenkins"
+                sh "kubectl --kubeconfig=${KUBECONFIG} delete service -l app=webchat --namespace=jenkins"
             }
         }
     }
 }
-
-
-
 
 
 
