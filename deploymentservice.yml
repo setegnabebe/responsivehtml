@@ -1,40 +1,41 @@
-
-   
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webchat-deployment
-  labels:
-    app: webchat
+  name: jenkins
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webchat
+      app: jenkins
   template:
     metadata:
       labels:
-        app: webchat
+        app: jenkins
     spec:
       containers:
-      - name: weberver
-        image: hagbesit/webchat:latest 
+      - name: jenkins
+        image: jenkins/jenkins:lts
         ports:
-        - containerPort: 8083
-        
+        - name: http-port
+          containerPort: 8080
+        - name: jnlp-port
+          containerPort: 50000
+        volumeMounts:
+        - name: jenkins-vol
+          mountPath: /var/jenkins_vol
+      volumes:
+      - name: jenkins-vol
+        emptyDir: {}
         
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: webchat-service
+  name: jenkins
 spec:
-  selector:
-    app: webchat
-  type: LoadBalancer
+  type: NodePort  
   ports:
-  - protocol: TCP
-    port: 5000
-    targetPort: 8083
-    nodePort: 31989
+    - port: 8080 
+      targetPort: 8080
+  selector:
+    app: jenkins
