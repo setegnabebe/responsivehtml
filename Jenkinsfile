@@ -36,8 +36,12 @@ pipeline {
                     def label = "webchat-${env.BUILD_ID}"
                     def image = 'webchat:latest'
 
-                    sh "kubectl --kubeconfig=${KUBECONFIG} deploymentservice.yml webchat=${image}"
-                    sh "kubectl --kubeconfig=${KUBECONFIG} deploymentservice.yml"
+                    // sh "kubectl --kubeconfig=${KUBECONFIG} deploymentservice.yml webchat=${image}"
+                    // sh "kubectl --kubeconfig=${KUBECONFIG} deploymentservice.yml"
+
+                    sh "kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yml --namespace=jenkins --record"
+
+                    sh "kubectl --kubeconfig=${KUBECONFIG} apply -f service.yml --namespace=jenkins"
                 }
             }
         }
