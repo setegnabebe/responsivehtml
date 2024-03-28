@@ -41,7 +41,7 @@ pipeline {
                 sh "kubectl --kubeconfig=${KUBECONFIG} delete service -l app=webchat --namespace=jenkins"
             }
         }
-    }
+ }
 
 
 
