@@ -20,7 +20,7 @@ spec:
       - name: weberver
         image: hagbesit/webchat:latest 
         ports:
-        - containerPort: 3030
+        - containerPort: 8083
         
         
 ---
@@ -36,5 +36,5 @@ spec:
   ports:
   - protocol: TCP
     port: 5000
-    targetPort: 3030
-    nodePort: 31110
+    targetPort: 8083
+    nodePort: 31989
