@@ -3,8 +3,7 @@ pipeline {
 
     environment {
         KUBECONFIG = '/root/.kube/config' 
-        DOCKER_REGISTRY_CREDENTIALS_PSW= credentials('hagbesit') 
-        dockerimagename = "webchat:latest"
+    
     }
     stages {
         stage('Checkout') {
@@ -16,10 +15,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_REGISTRY_CREDENTIALS_PSW) {
+                    
                         docker.build(dockerimagename, './Dockerfile') 
                         docker.image(dockerimagename).push('latest')
-                    }
                 }
             }
         }
