@@ -5,7 +5,8 @@ pipeline {
         KUBECONFIG = '/home/.kube/config' 
         DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') 
     }
-   stage('Checkout') {
+    stages {
+        stage('Checkout') {
             steps {
                 sshagent(credentials: ['jen']) {
                     checkout([$class: 'GitSCM',
@@ -14,7 +15,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -41,8 +42,8 @@ pipeline {
                 sh "kubectl --kubeconfig=${KUBECONFIG} delete service -l app=webchat --namespace=jenkins"
             }
         }
- }
-
+    }
+}
 
 
 
