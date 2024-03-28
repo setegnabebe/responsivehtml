@@ -91,9 +91,6 @@ pipeline {
 
 
 
-
-
-
 // pipeline {
 //     environment {
 //         dockerimagename = "hagbesit/webchat"
