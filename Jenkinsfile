@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = '/home/.kube/config' 
+        KUBECONFIG = '/root/.kube/config' 
         DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') 
     }
     stages {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.build('webchat:latest', './Dockerfile') 
+                        docker.build('webchat:latest', 'Dockerfile') 
                         docker.image('webchat:latest').push('latest')
                     }
                 }
@@ -43,8 +43,7 @@ pipeline {
 
                                
 
-                             
-            
+         
 
 
 
