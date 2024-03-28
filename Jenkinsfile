@@ -5,7 +5,13 @@ pipeline {
         KUBECONFIG = '/home/user/.kube/config' 
         DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') 
     }
-
+    stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/master']],
+                          userRemoteConfigs: [[url: 'git@github.com:setegnabebe/responisivehtml.git']]])
+            }
+        }
     stages {
         stage('Clone Repository') {
             steps {
