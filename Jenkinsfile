@@ -38,7 +38,7 @@ pipeline {
 
         stage('Cleanup') {
             steps {
-                sh "kubectl --kubeconfig=${KUBECONFIG} delete pod -l app=yourwebsite" // Clean up old pods
+                sh "kubectl --kubeconfig=${KUBECONFIG} delete pod -l app=webchat" // Clean up old pods
             }
         }
     }
