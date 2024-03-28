@@ -8,14 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sshagent(credentials: ['jen']) {
-                    checkout([$class: 'GitSCM',
-                              branches: [[name: '*/master']],
-                              userRemoteConfigs: [[url: 'https://github.com:setegnabebe/responisivehtml.git']]]
-                               
-                            )
-                             
-                }
+                 git 'https://github.com/setegnabebe/responsivehtml.git'
             }
         }
 
@@ -54,7 +47,11 @@ pipeline {
 
 
 
+ {
+                               
 
+                             
+                }
 
 
 
