@@ -5,16 +5,16 @@ pipeline {
         KUBECONFIG = '/home/.kube/config' 
         DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') 
     }
-    stages {
-        stage('Checkout') {
-            steps {
-                sshagent(credentials: ['jen']) {
-                    checkout([$class: 'GitSCM',
-                              branches: [[name: '*/master']],
-                              userRemoteConfigs: [[url: 'git@github.com:setegnabebe/responisivehtml.git']]])
-                }
-            }
-        }
+    // stages {
+    //     stage('Checkout') {
+    //         steps {
+    //             sshagent(credentials: ['jen']) {
+    //                 checkout([$class: 'GitSCM',
+    //                           branches: [[name: '*/master']],
+    //                           userRemoteConfigs: [[url: 'git@github.com:setegnabebe/responisivehtml.git']]])
+    //             }
+    //         }
+    //     }
 
         stage('Build Docker Image') {
             steps {
