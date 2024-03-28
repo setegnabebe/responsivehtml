@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         KUBECONFIG = '/home/user/.kube/config' 
-        DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') // Set your Docker registry credentials ID
+        DOCKER_REGISTRY_CREDENTIALS = credentials('hagbesit') 
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.build('webchat:latest', './Dockerfile') // Replace with path to your Dockerfile
+                        docker.build('webchat:latest', './Dockerfile') 
                         docker.image('webchat:latest').push('latest')
                     }
                 }
