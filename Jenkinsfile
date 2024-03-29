@@ -1,28 +1,27 @@
 pipeline {
-    agent any{
+    agent any
     kubernetes {
-            label 'jenkins-slave'
-            defaultContainer 'jnlp'
-            yaml """
-            apiVersion: v1
-            kind: Pod
-            metadata:
-              labels:
-                jenkins: slave
-            spec:
-              containers:
-              - name: jnlp
-                image: jenkins/jnlp-slave:latest
-                command:
-                - cat
-                tty: true
-              - name: docker
-                image: docker:latest
-                command:
-                - cat
-                tty: true
-            """
-        }
+        label 'jenkins-slave'
+        defaultContainer 'jnlp'
+        yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          labels:
+            jenkins: slave
+        spec:
+          containers:
+          - name: jnlp
+            image: jenkins/jnlp-slave:latest
+            command:
+            - cat
+            tty: true
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+        """
     }
 
     environment {
@@ -53,8 +52,6 @@ pipeline {
         }
     }
 }
-
-
 
          
 
