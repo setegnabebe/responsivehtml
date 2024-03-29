@@ -1,49 +1,31 @@
 pipeline {
-    agent {
-    kubernetes {
-        label 'jenkins-slave'
-        defaultContainer 'jnlp'
-        yaml """
-        apiVersion: v1
-        kind: Pod
-        metadata:
-          labels:
-            jenkins: slave
-        spec:
-          containers:
-          - name: jnlp
-            image: jenkins/jnlp-slave:latest
-            command:
-            - cat
-            tty: true
-          - name: docker
-            image: docker:latest
-            command:
-            - cat
-            tty: true
-        """
-    }
-    }
+    agent none
     environment {
         dockerImageName= 'webchat:latest'
     }
-
     stages {
         stage('Checkout') {
+            agent {
+                label 'jenkins-slave'
+            }
             steps {
                 git credentialsId: 'jenkins', url: 'https://github.com/setegnabebe/responsivehtml.git'
             }
         }
-
         stage('Build Docker Image') {
+            agent {
+                label 'jenkins-slave'
+            }
             steps {
                 script {
                     docker.build(dockerImageName)
                 }
             }
         }
-
         stage('Deploy to Kubernetes') {
+            agent {
+                label 'jenkins-slave'
+            }
             steps {
                 script {
                     kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
