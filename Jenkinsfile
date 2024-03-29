@@ -1,5 +1,23 @@
 pipeline {
-    agent none
+     agent {
+        kubernetes {
+            // Define the pod template directly
+            yaml """
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              labels:
+                jenkins: docker
+            spec:
+              containers:
+              - name: docker
+                image: docker:latest
+                command:
+                - cat
+                tty: true
+            """
+        }
+    }
     environment {
         dockerImageName= 'webchat:latest'
     }
