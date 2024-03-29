@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webchat
+  name: jenkins
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webchat
+      app: jenkins
   template:
     metadata:
       labels:
-        app: webchat
+        app: jenkins
     spec:
       containers:
       - name: jenkins
@@ -23,10 +23,7 @@ spec:
         volumeMounts:
         - name: docker-socket
           mountPath: /var/run/docker.sock
-      volumes:
-      - name: jenkins-vol
-        emptyDir: {}
-        volumes:
+     volumes:
       -  name: docker-socket
           hostPath:
           path: /var/run/docker.sock
@@ -35,11 +32,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webchat
+  name: jenkins
 spec:
   type: NodePort  
   ports:
     - port: 8080 
       targetPort: 8080
   selector:
-    app: webchat
+    app: jenkins
