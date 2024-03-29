@@ -3,21 +3,19 @@ pipeline {
 
     environment {
         dockerImageName= 'webchat:latest'
-    
     }
+
     stages {
         stage('Checkout') {
             steps {
-               git credentialsId: 'jenkins', url: 'https://github.com/setegnabebe/responsivehtml.git'
-                    }
+                git credentialsId: 'jenkins', url: 'https://github.com/setegnabebe/responsivehtml.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    
-                     docker.build(dockerImageName)
+                    docker.build(dockerImageName)
                 }
             }
         }
@@ -26,12 +24,12 @@ pipeline {
             steps {
                 script {
                     kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
-
                 }
             }
         }
-
     }
+}
+
 
 
          
