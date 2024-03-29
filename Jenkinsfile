@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-               
+               git credentialsId: 'jenkins', url: 'https://github.com/setegnabebe/responsivehtml.git'
                     }
             }
         }
