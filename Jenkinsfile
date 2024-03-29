@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {
     kubernetes {
         label 'jenkins-slave'
         defaultContainer 'jnlp'
@@ -23,7 +23,7 @@ pipeline {
             tty: true
         """
     }
-
+    }
     environment {
         dockerImageName= 'webchat:latest'
     }
