@@ -11,7 +11,7 @@ pipeline {
             spec:
               containers:
               - name: docker
-                image: docker:latest
+                image: jenkins/jenkins:latest
                 command:
                 - cat
                 tty: true
@@ -19,7 +19,7 @@ pipeline {
         }
     }
     environment {
-        dockerImageName= 'webchat:latest'
+        dockerImageName= 'jenkins/jenkins:latest'
     }
     stages {
         stage('Checkout') {
