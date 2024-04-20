@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: webchat
   name: webchat
 spec:
   replicas: 1
@@ -13,17 +15,5 @@ spec:
         app: webchat
     spec:
       containers:
-      - name: webchat
-        image: webapr8:latest
-        ports:
-        - name: http-port
-          containerPort: 8080
-        - name: jnlp-port
-          containerPort: 50000
-        volumeMounts:
-        - name: jenkins-vol
-          mountPath: /var/jenkins_vol
-      volumes:
-      - name: jenkins-vol
-        emptyDir: {}
-
+      - image: nginx:latest
+        name: nginx
