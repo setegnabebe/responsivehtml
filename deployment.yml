@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins
+  name: webchat
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jenkins
+      app: webchat
   template:
     metadata:
       labels:
-        app: jenkins
+        app: webchat
     spec:
       containers:
-      - name: jenkins
-        image: jenkins/jenkins:latest
+      - name: webchat
+        image: webapr8:latest
         ports:
         - name: http-port
           containerPort: 8080
