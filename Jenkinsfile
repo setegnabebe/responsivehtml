@@ -46,7 +46,7 @@ pipeline {
             }
             steps {
                 script {
-                    kubernetesDeploy(configs: "jenkins-service.yaml", kubeconfigId: "kubernetes")
+                    kubernetesDeploy(configs: "deployment.yml", "service.yml", kubeconfigId: "kubernetes")
                 }
             }
         }
