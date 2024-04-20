@@ -10,8 +10,8 @@ pipeline {
                 jenkins: docker
             spec:
               containers:
-              - name: docker
-                image: jenkins/jenkins:latest
+              - name: webapr8
+                image: webapr8:latest
                 command:
                 - cat
                 tty: true
@@ -19,7 +19,7 @@ pipeline {
         }
     }
     environment {
-        dockerImageName= 'jenkins/jenkins:latest'
+        dockerImageName= 'webapr8:latest'
     }
     stages {
         stage('Checkout') {
@@ -54,7 +54,6 @@ pipeline {
 }
 
          
-
 
 
 
