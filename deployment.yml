@@ -1,19 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: webchat
-  name: webchat
+  name: apache-website
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webchat
+      app: apache-website
   template:
     metadata:
       labels:
-        app: webchat
+        app: apache-website
     spec:
       containers:
-      - image: nginx:latest
-        name: nginx
+      - name: apache-website
+        image: 10.10.1.233:5000/apache-website:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-website
+  namespace: default
+spec:
+  selector:
+    app: apache-website
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
